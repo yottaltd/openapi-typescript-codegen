@@ -1,4 +1,4 @@
-import { describe, expect, it, type MockedFunction, vi } from 'vitest';
+import { describe, expect, it, vi, type MockedFunction } from 'vitest';
 
 import { exists, readFile } from './fileSystem';
 import { getOpenApiSpec } from './getOpenApiSpec';
