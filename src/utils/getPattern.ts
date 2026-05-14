@@ -6,5 +6,5 @@
  * @param pattern
  */
 export function getPattern(pattern?: string): string | undefined {
-    return pattern?.replace(/\\/g, '\\\\');
+  return pattern?.replace(/\\/g, '\\\\');
 }
