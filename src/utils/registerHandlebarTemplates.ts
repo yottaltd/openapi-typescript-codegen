@@ -1,6 +1,6 @@
 import * as Handlebars from 'handlebars/runtime';
 
-import { HttpClient } from '../HttpClient';
+import type { HttpClient } from '../HttpClient';
 import templateCoreSettings from '../templates/core/ApiOptions.hbs';
 import templateCoreApiRequestOptions from '../templates/core/ApiRequestOptions.hbs';
 import templateCoreApiResult from '../templates/core/ApiResult.hbs';
@@ -69,109 +69,122 @@ import partialTypeUnion from '../templates/partials/typeUnion.hbs';
 import { registerHandlebarHelpers } from './registerHandlebarHelpers';
 
 export interface Templates {
-    exports: {
-        model: Handlebars.TemplateDelegate;
-        schema: Handlebars.TemplateDelegate;
-        serviceInterface: Handlebars.TemplateDelegate;
-        serviceImplementation: Handlebars.TemplateDelegate;
-    };
-    core: {
-        settings: Handlebars.TemplateDelegate;
-        apiRequestOptions: Handlebars.TemplateDelegate;
-        apiResult: Handlebars.TemplateDelegate;
-        request: Handlebars.TemplateDelegate;
-    };
+  exports: {
+    model: Handlebars.TemplateDelegate;
+    schema: Handlebars.TemplateDelegate;
+    serviceInterface: Handlebars.TemplateDelegate;
+    serviceImplementation: Handlebars.TemplateDelegate;
+  };
+  core: {
+    settings: Handlebars.TemplateDelegate;
+    apiRequestOptions: Handlebars.TemplateDelegate;
+    apiResult: Handlebars.TemplateDelegate;
+    request: Handlebars.TemplateDelegate;
+  };
 }
 
 /**
  * Read all the Handlebar templates that we need and return on wrapper object
  * so we can easily access the templates in out generator / write functions.
  */
-export function registerHandlebarTemplates(root: { httpClient: HttpClient; useOptions: boolean; useUnionTypes: boolean }): Templates {
-    registerHandlebarHelpers(root);
+export function registerHandlebarTemplates(root: {
+  httpClient: HttpClient;
+  useOptions: boolean;
+  useUnionTypes: boolean;
+}): Templates {
+  registerHandlebarHelpers(root);
 
-    // Main templates (entry points for the files we write to disk)
-    const templates: Templates = {
-        exports: {
-            model: Handlebars.template(templateExportModel),
-            schema: Handlebars.template(templateExportSchema),
-            serviceImplementation: Handlebars.template(templateExportServiceImplementation),
-            serviceInterface: Handlebars.template(templateExportServiceInterface),
-        },
-        core: {
-            settings: Handlebars.template(templateCoreSettings),
-            apiRequestOptions: Handlebars.template(templateCoreApiRequestOptions),
-            apiResult: Handlebars.template(templateCoreApiResult),
-            request: Handlebars.template(templateCoreRequest),
-        },
-    };
+  // Main templates (entry points for the files we write to disk)
+  const templates: Templates = {
+    exports: {
+      model: Handlebars.template(templateExportModel),
+      schema: Handlebars.template(templateExportSchema),
+      serviceImplementation: Handlebars.template(templateExportServiceImplementation),
+      serviceInterface: Handlebars.template(templateExportServiceInterface),
+    },
+    core: {
+      settings: Handlebars.template(templateCoreSettings),
+      apiRequestOptions: Handlebars.template(templateCoreApiRequestOptions),
+      apiResult: Handlebars.template(templateCoreApiResult),
+      request: Handlebars.template(templateCoreRequest),
+    },
+  };
 
-    // Partials for the generations of the models, services, etc.
-    Handlebars.registerPartial('exportEnum', Handlebars.template(partialExportEnum));
-    Handlebars.registerPartial('exportInterface', Handlebars.template(partialExportInterface));
-    Handlebars.registerPartial('exportComposition', Handlebars.template(partialExportComposition));
-    Handlebars.registerPartial('exportType', Handlebars.template(partialExportType));
-    Handlebars.registerPartial('header', Handlebars.template(partialHeader));
-    Handlebars.registerPartial('isNullable', Handlebars.template(partialIsNullable));
-    Handlebars.registerPartial('isReadOnly', Handlebars.template(partialIsReadOnly));
-    Handlebars.registerPartial('isRequired', Handlebars.template(partialIsRequired));
-    Handlebars.registerPartial('parameters', Handlebars.template(partialParameters));
-    Handlebars.registerPartial('result', Handlebars.template(partialResult));
-    Handlebars.registerPartial('schema', Handlebars.template(partialSchema));
-    Handlebars.registerPartial('schemaArray', Handlebars.template(partialSchemaArray));
-    Handlebars.registerPartial('schemaDictionary', Handlebars.template(partialSchemaDictionary));
-    Handlebars.registerPartial('schemaEnum', Handlebars.template(partialSchemaEnum));
-    Handlebars.registerPartial('schemaGeneric', Handlebars.template(partialSchemaGeneric));
-    Handlebars.registerPartial('schemaInterface', Handlebars.template(partialSchemaInterface));
-    Handlebars.registerPartial('schemaComposition', Handlebars.template(partialSchemaComposition));
-    Handlebars.registerPartial('type', Handlebars.template(partialType));
-    Handlebars.registerPartial('typeArray', Handlebars.template(partialTypeArray));
-    Handlebars.registerPartial('typeDictionary', Handlebars.template(partialTypeDictionary));
-    Handlebars.registerPartial('typeEnum', Handlebars.template(partialTypeEnum));
-    Handlebars.registerPartial('typeGeneric', Handlebars.template(partialTypeGeneric));
-    Handlebars.registerPartial('typeInterface', Handlebars.template(partialTypeInterface));
-    Handlebars.registerPartial('typeReference', Handlebars.template(partialTypeReference));
-    Handlebars.registerPartial('typeUnion', Handlebars.template(partialTypeUnion));
-    Handlebars.registerPartial('typeIntersection', Handlebars.template(partialTypeIntersection));
-    Handlebars.registerPartial('base', Handlebars.template(partialBase));
+  // Partials for the generations of the models, services, etc.
+  Handlebars.registerPartial('exportEnum', Handlebars.template(partialExportEnum));
+  Handlebars.registerPartial('exportInterface', Handlebars.template(partialExportInterface));
+  Handlebars.registerPartial('exportComposition', Handlebars.template(partialExportComposition));
+  Handlebars.registerPartial('exportType', Handlebars.template(partialExportType));
+  Handlebars.registerPartial('header', Handlebars.template(partialHeader));
+  Handlebars.registerPartial('isNullable', Handlebars.template(partialIsNullable));
+  Handlebars.registerPartial('isReadOnly', Handlebars.template(partialIsReadOnly));
+  Handlebars.registerPartial('isRequired', Handlebars.template(partialIsRequired));
+  Handlebars.registerPartial('parameters', Handlebars.template(partialParameters));
+  Handlebars.registerPartial('result', Handlebars.template(partialResult));
+  Handlebars.registerPartial('schema', Handlebars.template(partialSchema));
+  Handlebars.registerPartial('schemaArray', Handlebars.template(partialSchemaArray));
+  Handlebars.registerPartial('schemaDictionary', Handlebars.template(partialSchemaDictionary));
+  Handlebars.registerPartial('schemaEnum', Handlebars.template(partialSchemaEnum));
+  Handlebars.registerPartial('schemaGeneric', Handlebars.template(partialSchemaGeneric));
+  Handlebars.registerPartial('schemaInterface', Handlebars.template(partialSchemaInterface));
+  Handlebars.registerPartial('schemaComposition', Handlebars.template(partialSchemaComposition));
+  Handlebars.registerPartial('type', Handlebars.template(partialType));
+  Handlebars.registerPartial('typeArray', Handlebars.template(partialTypeArray));
+  Handlebars.registerPartial('typeDictionary', Handlebars.template(partialTypeDictionary));
+  Handlebars.registerPartial('typeEnum', Handlebars.template(partialTypeEnum));
+  Handlebars.registerPartial('typeGeneric', Handlebars.template(partialTypeGeneric));
+  Handlebars.registerPartial('typeInterface', Handlebars.template(partialTypeInterface));
+  Handlebars.registerPartial('typeReference', Handlebars.template(partialTypeReference));
+  Handlebars.registerPartial('typeUnion', Handlebars.template(partialTypeUnion));
+  Handlebars.registerPartial('typeIntersection', Handlebars.template(partialTypeIntersection));
+  Handlebars.registerPartial('base', Handlebars.template(partialBase));
 
-    // Generic functions used in 'request' file @see src/templates/core/request.hbs for more info
-    Handlebars.registerPartial('functions/catchErrors', Handlebars.template(functionCatchErrors));
-    Handlebars.registerPartial('functions/getQueryString', Handlebars.template(functionGetQueryString));
-    Handlebars.registerPartial('functions/getUrl', Handlebars.template(functionGetUrl));
-    Handlebars.registerPartial('functions/isBinary', Handlebars.template(functionIsBinary));
-    Handlebars.registerPartial('functions/isBlob', Handlebars.template(functionIsBlob));
-    Handlebars.registerPartial('functions/isDefined', Handlebars.template(functionIsDefined));
-    Handlebars.registerPartial('functions/isFormData', Handlebars.template(functionIsFormData));
-    Handlebars.registerPartial('functions/isString', Handlebars.template(functionIsString));
-    Handlebars.registerPartial('functions/isStringWithValue', Handlebars.template(functionIsStringWithValue));
-    Handlebars.registerPartial('functions/isSuccess', Handlebars.template(functionIsSuccess));
-    Handlebars.registerPartial('functions/resolve', Handlebars.template(functionResolve));
-    Handlebars.registerPartial('functions/createError', Handlebars.template(functionCreateError));
+  // Generic functions used in 'request' file @see src/templates/core/request.hbs for more info
+  Handlebars.registerPartial('functions/catchErrors', Handlebars.template(functionCatchErrors));
+  Handlebars.registerPartial(
+    'functions/getQueryString',
+    Handlebars.template(functionGetQueryString),
+  );
+  Handlebars.registerPartial('functions/getUrl', Handlebars.template(functionGetUrl));
+  Handlebars.registerPartial('functions/isBinary', Handlebars.template(functionIsBinary));
+  Handlebars.registerPartial('functions/isBlob', Handlebars.template(functionIsBlob));
+  Handlebars.registerPartial('functions/isDefined', Handlebars.template(functionIsDefined));
+  Handlebars.registerPartial('functions/isFormData', Handlebars.template(functionIsFormData));
+  Handlebars.registerPartial('functions/isString', Handlebars.template(functionIsString));
+  Handlebars.registerPartial(
+    'functions/isStringWithValue',
+    Handlebars.template(functionIsStringWithValue),
+  );
+  Handlebars.registerPartial('functions/isSuccess', Handlebars.template(functionIsSuccess));
+  Handlebars.registerPartial('functions/resolve', Handlebars.template(functionResolve));
+  Handlebars.registerPartial('functions/createError', Handlebars.template(functionCreateError));
 
-    // Specific files for the fetch client implementation
-    Handlebars.registerPartial('fetch/getHeaders', Handlebars.template(fetchGetHeaders));
-    Handlebars.registerPartial('fetch/getRequestBody', Handlebars.template(fetchGetRequestBody));
-    Handlebars.registerPartial('fetch/getResponseBody', Handlebars.template(fetchGetResponseBody));
-    Handlebars.registerPartial('fetch/getResponseHeader', Handlebars.template(fetchGetResponseHeader));
-    Handlebars.registerPartial('fetch/sendRequest', Handlebars.template(fetchSendRequest));
-    Handlebars.registerPartial('fetch/request', Handlebars.template(fetchRequest));
+  // Specific files for the fetch client implementation
+  Handlebars.registerPartial('fetch/getHeaders', Handlebars.template(fetchGetHeaders));
+  Handlebars.registerPartial('fetch/getRequestBody', Handlebars.template(fetchGetRequestBody));
+  Handlebars.registerPartial('fetch/getResponseBody', Handlebars.template(fetchGetResponseBody));
+  Handlebars.registerPartial(
+    'fetch/getResponseHeader',
+    Handlebars.template(fetchGetResponseHeader),
+  );
+  Handlebars.registerPartial('fetch/sendRequest', Handlebars.template(fetchSendRequest));
+  Handlebars.registerPartial('fetch/request', Handlebars.template(fetchRequest));
 
-    // Specific files for the xhr client implementation
-    Handlebars.registerPartial('xhr/getHeaders', Handlebars.template(xhrGetHeaders));
-    Handlebars.registerPartial('xhr/getRequestBody', Handlebars.template(xhrGetRequestBody));
-    Handlebars.registerPartial('xhr/getResponseBody', Handlebars.template(xhrGetResponseBody));
-    Handlebars.registerPartial('xhr/getResponseHeader', Handlebars.template(xhrGetResponseHeader));
-    Handlebars.registerPartial('xhr/sendRequest', Handlebars.template(xhrSendRequest));
-    Handlebars.registerPartial('xhr/request', Handlebars.template(xhrRequest));
+  // Specific files for the xhr client implementation
+  Handlebars.registerPartial('xhr/getHeaders', Handlebars.template(xhrGetHeaders));
+  Handlebars.registerPartial('xhr/getRequestBody', Handlebars.template(xhrGetRequestBody));
+  Handlebars.registerPartial('xhr/getResponseBody', Handlebars.template(xhrGetResponseBody));
+  Handlebars.registerPartial('xhr/getResponseHeader', Handlebars.template(xhrGetResponseHeader));
+  Handlebars.registerPartial('xhr/sendRequest', Handlebars.template(xhrSendRequest));
+  Handlebars.registerPartial('xhr/request', Handlebars.template(xhrRequest));
 
-    // Specific files for the node client implementation
-    Handlebars.registerPartial('node/getHeaders', Handlebars.template(nodeGetHeaders));
-    Handlebars.registerPartial('node/getRequestBody', Handlebars.template(nodeGetRequestBody));
-    Handlebars.registerPartial('node/getResponseBody', Handlebars.template(nodeGetResponseBody));
-    Handlebars.registerPartial('node/getResponseHeader', Handlebars.template(nodeGetResponseHeader));
-    Handlebars.registerPartial('node/sendRequest', Handlebars.template(nodeSendRequest));
-    Handlebars.registerPartial('node/request', Handlebars.template(nodeRequest));
+  // Specific files for the node client implementation
+  Handlebars.registerPartial('node/getHeaders', Handlebars.template(nodeGetHeaders));
+  Handlebars.registerPartial('node/getRequestBody', Handlebars.template(nodeGetRequestBody));
+  Handlebars.registerPartial('node/getResponseBody', Handlebars.template(nodeGetResponseBody));
+  Handlebars.registerPartial('node/getResponseHeader', Handlebars.template(nodeGetResponseHeader));
+  Handlebars.registerPartial('node/sendRequest', Handlebars.template(nodeSendRequest));
+  Handlebars.registerPartial('node/request', Handlebars.template(nodeRequest));
 
-    return templates;
+  return templates;
 }

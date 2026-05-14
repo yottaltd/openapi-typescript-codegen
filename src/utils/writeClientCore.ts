@@ -1,9 +1,9 @@
 import { resolve } from 'path';
 
 import type { Client } from '../client/interfaces/Client';
-import { HttpClient } from '../HttpClient';
+import type { HttpClient } from '../HttpClient';
 import { copyFile, exists, writeFile } from './fileSystem';
-import { Templates } from './registerHandlebarTemplates';
+import type { Templates } from './registerHandlebarTemplates';
 
 /**
  * Generate OpenAPI core files, this includes the basic boilerplate code to handle requests.
@@ -13,24 +13,33 @@ import { Templates } from './registerHandlebarTemplates';
  * @param httpClient The selected httpClient (fetch, xhr or node)
  * @param request: Path to custom request file
  */
-export async function writeClientCore(client: Client, templates: Templates, outputPath: string, httpClient: HttpClient, request?: string): Promise<void> {
-    const context = {
-        httpClient,
-        server: client.server,
-        version: client.version,
-    };
+export async function writeClientCore(
+  client: Client,
+  templates: Templates,
+  outputPath: string,
+  httpClient: HttpClient,
+  request?: string,
+): Promise<void> {
+  const context = {
+    httpClient,
+    server: client.server,
+    version: client.version,
+  };
 
-    await writeFile(resolve(outputPath, 'ApiOptions.ts'), templates.core.settings(context));
-    await writeFile(resolve(outputPath, 'ApiRequestOptions.ts'), templates.core.apiRequestOptions({}));
-    await writeFile(resolve(outputPath, 'ApiResult.ts'), templates.core.apiResult({}));
-    await writeFile(resolve(outputPath, 'request.ts'), templates.core.request(context));
+  await writeFile(resolve(outputPath, 'ApiOptions.ts'), templates.core.settings(context));
+  await writeFile(
+    resolve(outputPath, 'ApiRequestOptions.ts'),
+    templates.core.apiRequestOptions({}),
+  );
+  await writeFile(resolve(outputPath, 'ApiResult.ts'), templates.core.apiResult({}));
+  await writeFile(resolve(outputPath, 'request.ts'), templates.core.request(context));
 
-    if (request) {
-        const requestFile = resolve(process.cwd(), request);
-        const requestFileExists = await exists(requestFile);
-        if (!requestFileExists) {
-            throw new Error(`Custom request file "${requestFile}" does not exists`);
-        }
-        await copyFile(requestFile, resolve(outputPath, 'request.ts'));
+  if (request) {
+    const requestFile = resolve(process.cwd(), request);
+    const requestFileExists = await exists(requestFile);
+    if (!requestFileExists) {
+      throw new Error(`Custom request file "${requestFile}" does not exists`);
     }
+    await copyFile(requestFile, resolve(outputPath, 'request.ts'));
+  }
 }

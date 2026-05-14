@@ -10,27 +10,29 @@ import { readSpec } from './readSpec';
  * on parsing the file as JSON.
  * @param input
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- raw parsed OpenAPI doc, shape unknown until v2/v3 dispatch
 export async function getOpenApiSpec(input: string): Promise<any> {
-    const extension = extname(input).toLowerCase();
-    const content = await readSpec(input);
-    let rootObject: any;
-    switch (extension) {
-        case '.yml':
-        case '.yaml':
-            try {
-                rootObject = load(content);
-            } catch (e) {
-                throw new Error(`Could not parse OpenApi YAML: "${input}"`);
-            }
-            break;
+  const extension = extname(input).toLowerCase();
+  const content = await readSpec(input);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- raw parsed OpenAPI doc, shape unknown until v2/v3 dispatch
+  let rootObject: any;
+  switch (extension) {
+    case '.yml':
+    case '.yaml':
+      try {
+        rootObject = load(content);
+      } catch {
+        throw new Error(`Could not parse OpenApi YAML: "${input}"`);
+      }
+      break;
 
-        default:
-            try {
-                rootObject = JSON.parse(content);
-            } catch (e) {
-                throw new Error(`Could not parse OpenApi JSON: "${input}"`);
-            }
-            break;
-    }
-    return await RefParser.bundle(rootObject);
+    default:
+      try {
+        rootObject = JSON.parse(content);
+      } catch {
+        throw new Error(`Could not parse OpenApi JSON: "${input}"`);
+      }
+      break;
+  }
+  return await RefParser.bundle(rootObject);
 }
