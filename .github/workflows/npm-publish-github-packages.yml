@@ -1,0 +1,67 @@
+# Publishes to GitHub Packages when a version bump lands on master.
+# Workflow is driven by the "version" field in package.json — see HOW_TO_RELEASE.md
+# for the human-side process.
+
+name: Publish to GitHub Packages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to create the tag + release
+      packages: write # to publish to GitHub Packages
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history so we can check whether the tag already exists
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Read version from package.json
+        id: version
+        run: echo "v=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Check if tag already exists
+        id: exists
+        run: |
+          if git rev-parse "v${{ steps.version.outputs.v }}" >/dev/null 2>&1; then
+            echo "tag=true" >> $GITHUB_OUTPUT
+            echo "v${{ steps.version.outputs.v }} already released — nothing to do."
+          else
+            echo "tag=false" >> $GITHUB_OUTPUT
+            echo "v${{ steps.version.outputs.v }} is a new version — will publish."
+          fi
+
+      - if: steps.exists.outputs.tag == 'false'
+        run: npm ci
+
+      - if: steps.exists.outputs.tag == 'false'
+        run: npm run release
+
+      - if: steps.exists.outputs.tag == 'false'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: steps.exists.outputs.tag == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.v }}
+          generate_release_notes: true

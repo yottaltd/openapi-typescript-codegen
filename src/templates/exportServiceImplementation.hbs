@@ -27,10 +27,15 @@ export class {{{name}}}Default implements {{{name}}} {
     public async {{{name}}}({{>parameters}}): Promise<{{>result}}> {
         const options = this.{{{name}}}ApiRequestOptions(
         {{#if parameters.[0]}}
+        {{#if @root.useOptions}}
         {
             {{#each parameters}}{{{name}}},
             {{/each}}
         }
+        {{else}}
+        {{#each parameters}}{{{name}}},
+        {{/each}}
+        {{/if}}
         {{/if}}
         );
         const result = await __request(options);

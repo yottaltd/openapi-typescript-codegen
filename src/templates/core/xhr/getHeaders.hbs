@@ -1,4 +1,4 @@
-async function getHeaders(options: ApiRequestOptions): Promise<Headers> {
+export async function getHeaders(options: ApiRequestOptions): Promise<Headers> {
     const token = await resolve(options, options.token);
     const username = await resolve(options, options.username);
     const password = await resolve(options, options.password);

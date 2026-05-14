@@ -1,6 +1,6 @@
 {
   "name": "@yottaltd/openapi-typescript-codegen",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Library that generates Typescript clients based on the OpenAPI specification.",
   "author": "Ferdi Koomen",
   "homepage": "https://github.com/yottaltd/openapi-typescript-codegen",
@@ -42,11 +42,10 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "clean": "rimraf ./dist ./test/generated ./test/e2e/generated ./samples/generated ./coverage ./node_modules/.cache",
+    "prebuild": "rimraf ./dist",
     "build": "rollup --config --environment NODE_ENV:development",
-    "build:watch": "rollup --config --environment NODE_ENV:development --watch",
+    "prerelease": "rimraf ./dist",
     "release": "rollup --config --environment NODE_ENV:production",
-    "run": "node ./test/index.js",
     "test": "vitest run",
     "lint": "eslint --max-warnings 0 --no-fix",
     "lint:fix": "eslint --fix",
