@@ -1,0 +1,4 @@
+# Shebang scripts MUST have LF line endings — CRLF breaks the kernel's
+# `#!/usr/bin/env node` parser on Linux/macOS and produces a "bad
+# interpreter" error when consumers run the published CLI.
+bin/index.js text eol=lf
