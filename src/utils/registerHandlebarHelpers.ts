@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- `this: any` is the Handlebars idiom for the current template context */
 
 import * as Handlebars from 'handlebars/runtime';
-
 import type { Enum } from '../client/interfaces/Enum';
 import type { Model } from '../client/interfaces/Model';
 import type { HttpClient } from '../HttpClient';

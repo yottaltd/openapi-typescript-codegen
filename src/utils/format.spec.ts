@@ -1,6 +1,5 @@
 import { EOL } from 'os';
 import { describe, expect, it } from 'vitest';
-
 import { format } from './format';
 
 const input1 = `{ foo: true }`;

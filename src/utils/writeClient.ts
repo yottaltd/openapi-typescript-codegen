@@ -1,5 +1,4 @@
 import { resolve } from 'path';
-
 import type { Client } from '../client/interfaces/Client';
 import type { HttpClient } from '../HttpClient';
 import { mkdir, rmdir } from './fileSystem';

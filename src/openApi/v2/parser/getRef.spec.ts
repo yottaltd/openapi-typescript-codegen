@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { getRef } from './getRef';
 
 describe('getRef', () => {

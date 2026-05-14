@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { isString } from './isString';
 
 describe('isString', () => {

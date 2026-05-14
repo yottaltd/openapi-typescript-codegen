@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import type { Service } from '../client/interfaces/Service';
 import { getServiceNames } from './getServiceNames';
 

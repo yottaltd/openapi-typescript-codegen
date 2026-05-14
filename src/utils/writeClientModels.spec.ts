@@ -1,6 +1,5 @@
 import { resolve } from 'path';
 import { describe, expect, it, vi } from 'vitest';
-
 import type { Model } from '../client/interfaces/Model';
 import { HttpClient } from '../HttpClient';
 import { writeFile } from './fileSystem';

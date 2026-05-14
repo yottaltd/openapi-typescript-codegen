@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { getOperationName } from './getOperationName';
 
 describe('getOperationName', () => {

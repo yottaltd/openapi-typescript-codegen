@@ -1,7 +1,6 @@
 import { load } from 'js-yaml';
 import RefParser from 'json-schema-ref-parser';
 import { extname } from 'path';
-
 import { readSpec } from './readSpec';
 
 /**

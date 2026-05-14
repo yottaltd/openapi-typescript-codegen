@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { escapeName } from './escapeName';
 
 describe('escapeName', () => {

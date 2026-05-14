@@ -1,6 +1,5 @@
 import { resolve } from 'path';
 import { describe, expect, it } from 'vitest';
-
 import { isSubDirectory } from './isSubdirectory';
 
 describe('isSubDirectory', () => {

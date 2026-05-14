@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { unique } from './unique';
 
 describe('unique', () => {

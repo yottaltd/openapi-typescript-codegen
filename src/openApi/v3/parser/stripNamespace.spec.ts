@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { stripNamespace } from './stripNamespace';
 
 describe('stripNamespace', () => {

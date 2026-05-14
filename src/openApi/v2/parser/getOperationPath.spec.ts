@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { getOperationPath } from './getOperationPath';
 
 describe('getOperationPath', () => {

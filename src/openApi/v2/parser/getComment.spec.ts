@@ -1,6 +1,5 @@
 import { EOL } from 'os';
 import { describe, expect, it } from 'vitest';
-
 import { getComment } from './getComment';
 
 describe('getComment', () => {

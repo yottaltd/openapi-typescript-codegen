@@ -1,5 +1,4 @@
 import { resolve } from 'path';
-
 import type { Service } from '../client/interfaces/Service';
 import type { HttpClient } from '../HttpClient';
 import { writeFile } from './fileSystem';

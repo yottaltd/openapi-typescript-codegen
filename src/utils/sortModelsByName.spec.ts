@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import type { Model } from '../client/interfaces/Model';
 import { sortModelsByName } from './sortModelsByName';
 

@@ -1,5 +1,4 @@
 import { describe, it } from 'vitest';
-
 import * as OpenAPI from './index';
 
 describe('index', () => {

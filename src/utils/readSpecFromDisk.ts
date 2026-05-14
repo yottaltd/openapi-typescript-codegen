@@ -1,5 +1,4 @@
 import { resolve } from 'path';
-
 import { exists, readFile } from './fileSystem';
 
 /**

@@ -1,5 +1,4 @@
 import * as Handlebars from 'handlebars/runtime';
-
 import type { HttpClient } from '../HttpClient';
 import templateCoreSettings from '../templates/core/ApiOptions.hbs';
 import templateCoreApiRequestOptions from '../templates/core/ApiRequestOptions.hbs';

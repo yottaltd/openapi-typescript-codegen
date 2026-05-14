@@ -1,6 +1,5 @@
 import * as Handlebars from 'handlebars/runtime';
 import { describe, expect, it } from 'vitest';
-
 import { HttpClient } from '../HttpClient';
 import { registerHandlebarHelpers } from './registerHandlebarHelpers';
 
