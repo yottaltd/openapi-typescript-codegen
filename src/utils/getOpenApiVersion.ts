@@ -1,6 +1,6 @@
 export enum OpenApiVersion {
-    V2 = 2,
-    V3 = 3,
+  V2 = 2,
+  V3 = 3,
 }
 
 /**
@@ -9,14 +9,16 @@ export enum OpenApiVersion {
  * an incompatible type. Or if the type is missing...
  * @param openApi The loaded spec (can be any object)
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- raw parsed OpenAPI doc, shape not yet determined
 export function getOpenApiVersion(openApi: any): OpenApiVersion {
-    const info: any = openApi.swagger || openApi.openapi;
-    if (typeof info === 'string') {
-        const c = info.charAt(0);
-        const v = Number.parseInt(c);
-        if (v === OpenApiVersion.V2 || v === OpenApiVersion.V3) {
-            return v as OpenApiVersion;
-        }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- v2 uses .swagger, v3 uses .openapi; either could be present
+  const info: any = openApi.swagger || openApi.openapi;
+  if (typeof info === 'string') {
+    const c = info.charAt(0);
+    const v = Number.parseInt(c);
+    if (v === OpenApiVersion.V2 || v === OpenApiVersion.V3) {
+      return v as OpenApiVersion;
     }
-    throw new Error(`Unsupported Open API version: "${String(info)}"`);
+  }
+  throw new Error(`Unsupported Open API version: "${String(info)}"`);
 }

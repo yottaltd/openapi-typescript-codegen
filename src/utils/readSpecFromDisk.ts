@@ -1,5 +1,4 @@
 import { resolve } from 'path';
-
 import { exists, readFile } from './fileSystem';
 
 /**
@@ -7,15 +6,15 @@ import { exists, readFile } from './fileSystem';
  * @param input
  */
 export async function readSpecFromDisk(input: string): Promise<string> {
-    const filePath = resolve(process.cwd(), input);
-    const fileExists = await exists(filePath);
-    if (fileExists) {
-        try {
-            const content = await readFile(filePath, 'utf8');
-            return content.toString();
-        } catch (e) {
-            throw new Error(`Could not read OpenApi spec: "${filePath}"`);
-        }
+  const filePath = resolve(process.cwd(), input);
+  const fileExists = await exists(filePath);
+  if (fileExists) {
+    try {
+      const content = await readFile(filePath, 'utf8');
+      return content.toString();
+    } catch {
+      throw new Error(`Could not read OpenApi spec: "${filePath}"`);
     }
-    throw new Error(`Could not find OpenApi spec: "${filePath}"`);
+  }
+  throw new Error(`Could not find OpenApi spec: "${filePath}"`);
 }

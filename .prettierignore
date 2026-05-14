@@ -1,0 +1,15 @@
+# Build outputs and generated artefacts
+dist/
+coverage/
+test/e2e/generated/
+
+# Lockfiles and tooling state
+package-lock.json
+.claude/
+
+# Handlebars templates (non-JS syntax)
+**/*.hbs
+
+# Upstream/external samples and test fixtures
+samples/
+test/spec/

@@ -3,9 +3,12 @@ import type { OpenApi } from '../interfaces/OpenApi';
 import type { OpenApiMediaType } from '../interfaces/OpenApiMediaType';
 import type { OpenApiSchema } from '../interfaces/OpenApiSchema';
 
-export function getContent(openApi: OpenApi, content: Dictionary<OpenApiMediaType>): OpenApiSchema | null {
-    /* prettier-ignore */
-    return (
+export function getContent(
+  openApi: OpenApi,
+  content: Dictionary<OpenApiMediaType>,
+): OpenApiSchema | null {
+  /* prettier-ignore */
+  return (
         content['application/json-patch+json'] &&
         content['application/json-patch+json'].schema
     ) || (

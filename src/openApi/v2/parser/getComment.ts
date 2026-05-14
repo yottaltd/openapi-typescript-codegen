@@ -6,8 +6,10 @@ import { EOL } from 'os';
  * @param comment
  */
 export function getComment(comment?: string): string | null {
-    if (comment) {
-        return comment.replace(/(\*\/)/g, '*_/').replace(/\r?\n(.*)/g, (_, w) => `${EOL} * ${w.trim()}`);
-    }
-    return null;
+  if (comment) {
+    return comment
+      .replace(/(\*\/)/g, '*_/')
+      .replace(/\r?\n(.*)/g, (_, w) => `${EOL} * ${w.trim()}`);
+  }
+  return null;
 }
