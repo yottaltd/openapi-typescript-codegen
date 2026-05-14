@@ -1,4 +1,9 @@
-import { copyFile as __copyFile, exists as __exists, readFile as __readFile, writeFile as __writeFile } from 'fs';
+import {
+  copyFile as __copyFile,
+  exists as __exists,
+  readFile as __readFile,
+  writeFile as __writeFile,
+} from 'fs';
 import mkdirp from 'mkdirp';
 import { rimraf } from 'rimraf';
 import { promisify } from 'util';
@@ -14,5 +19,5 @@ export const mkdir = mkdirp;
 
 // Promisified version of rimraf
 export const rmdir = async (path: string): Promise<void> => {
-    await rimraf(path);
+  await rimraf(path);
 };
