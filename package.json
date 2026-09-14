@@ -53,7 +53,7 @@
     "prettier:fix": "prettier . --write"
   },
   "dependencies": {
-    "@apidevtools/json-schema-ref-parser": "^15.3.5",
+    "@apidevtools/json-schema-ref-parser": "^16.0.0",
     "camelcase": "^6.3.0",
     "commander": "^10.0.0",
     "handlebars": "^4.7.9",
